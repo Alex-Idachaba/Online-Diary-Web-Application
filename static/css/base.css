@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Acme|Lobster|Patua+One|Rubik|Sniglet");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --Sniglet-font: "Sniglet", cursive;
+  --Rubik: "Rubik", cursive;
+  --Patua: "Patua One", cursive;
+  --Lobster: "lobster", cursive;
+}
+
+.jumbotron {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../images/diary_background.jpg");
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  border-radius: 0px !important;
+}
+
+.jumbotron h1 {
+  margin: 30px 0;
+  font-size: 40px;
+  line-height: 1.5;
+  font-family: var(--Patua);
+}
+
+.intro {
+  padding-top: 160px;
+}

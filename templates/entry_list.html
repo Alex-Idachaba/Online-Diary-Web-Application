@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Diary Entries{% endblock title %}
+
+{% block content %}
+<!-- Alert -->
+    <div class="container">
+      <div class="mt-5 pt-4">
+      {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+      </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="row">
+        <form class="form-inline mt-2 mt-md-0 ml-auto" action="{% url 'search_results' %}" method="get">
+            <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search Diary" aria-label="Search" >
+            <button class="btn btn-success">Search</button>
+        </form>
+        </div>
+        
+        <br>
+        <h1>Your diary records</h1>
+        <br>
+        <a href="{% url 'entry_new' %}">Add new entry</a>
+        {% for entry in queryset %}
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">{{ entry.title }}</span> |
+                    <span class="text-muted">{{ entry.date }}</span>
+                </div>
+                <div class="card-body">
+                    {{ entry.body }}
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <a href="{% url 'entry_edit' entry.pk %}">Edit</a> |
+                    <a href="{% url 'entry_delete' entry.pk %}">Delete</a> 
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="container">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-template d-flex justify-content-center">
+            {% if queryset.has_previous %}                
+            <li class="page-item"><a style="color: black;" href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+            {% endif %}
+            <li class="page-item"><a style="color: black;" href="?{{ page_request_var }}={{ queryset.number }}" class="page-link active">{{ queryset.number }}</a></li>
+            {% if queryset.has_next %}
+            <li class="page-item"><a style="color: black;" href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+            {% endif %}
+            </ul>
+        </nav>
+
+        {% if is_paginated %}
+        
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-template d-flex justify-content-center">
+            {% if page_obj.has_previous %}                
+            <li class="page-item"><a style="color: black;" href="?{{ page_request_var }}={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+            {% endif %}
+            <li class="page-item"><a style="color: black;" href="?{{ page_request_var }}={{ page_obj.number }}" class="page-link active">{{ page_obj.number }}</a></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a style="color: black;" href="?{{ page_request_var }}={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+            {% endif %}
+            </ul>
+        </nav>  
+        {% endif %}
+    </div>
+    <br>
+{% endblock content %}

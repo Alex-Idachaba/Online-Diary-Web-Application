@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="entry">
+            <h2>{{ object.title }}</h2>
+            <p> {{ object.date}}</p>
+            <p>{{ object.body}}</p>
+        </div>
+
+        <p><a href="{% url 'entry_edit' entry.pk %}">Edit</a> |
+            <a href="{% url 'entry_delete' entry.pk %}">Delete</a></p> 
+        <p>Back to <a href="{% url 'entry_list' %}">All Diary Entries</a>.</p>
+    </div>
+{% endblock content %}
